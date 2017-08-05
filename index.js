@@ -2,6 +2,7 @@ var express = require('express');
 var http = require('http');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var FlightAware = require('flightaware.js');
 
 var app = express();
 app.server = http.createServer(app);
@@ -16,11 +17,27 @@ var personality_insights = new PersonalityInsightsV3({
     version_date: '2016-10-20'
 });
 
+var Client = require('node-rest-client').Client;
+
+var Fusername = 'Meternx01';
+var apiKey = 'a7bca5b55eff4c03b9e4c8adebfdf3533420973d';
+var fxmlUrl = 'https://flightxml.flightaware.com/json/FlightXML3/'
+
+var client_options = {
+    user: Fusername,
+    password: apiKey
+};
+var client = new Client(client_options);
+
+client.registerMethod('findFlights', fxmlUrl + 'FindFlight', 'GET');
+
+
+
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
 
@@ -33,6 +50,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.static('./client'));
+
 
 // app.get('/', function(req, res) {
 //     res.sendFile('index.html')
@@ -56,11 +74,22 @@ app.post("/profile", function(req, res) {
         if (error)
             console.log('Error:', error);
         else
-        	res.json(response)
-            // console.log(JSON.stringify(response, null, 2));
+            res.json(response)
+        // console.log(JSON.stringify(response, null, 2));
     });
 
 });
+
+app.post("/flights", function(req, res) {
+
+    var findFlightArgs = { 
+        parameters: req.body.args
+    };
+
+    client.methods.findFlights(findFlightArgs, function(data, response) {
+        res.json(data);
+    });
+})
 
 
 app.server.listen(process.env.PORT || 8080);

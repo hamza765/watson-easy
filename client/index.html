@@ -10,18 +10,34 @@
 </body>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-	$.ajax({
-	    url: '/profile',
-	    type: 'POST',
-	    dataType: 'JSON',
-	    data: { 
-	    	content: `That could be because every engineer can do math and science. And lets face it, the math and science you do in college is more intense than what you will do in the real world. At 	least in my field. So writing and communication is what separates them because they all can do the math needed. My old boss told me he hired me over the other candidates for that reason. 	He said everyone can do these calculations that we hire but you have social skills.
-					So I wouldn't say writing is the most important skill. It just makes you stand out. After all if you couldn't do the math required to engineer whatever you are designing there wouldn't have any content to email about or write a report on. That or you'd be promoted to product manager.` 
-		}
-	}).done(function(response) {
-		console.log(response)
-	    $('body').html(JSON.stringify(response));
-	});
+$.ajax({
+    url: '/profile',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+        content: `That could be because every engineer can do math and science. And lets face it, the math and science you do in college is more intense than what you will do in the real world. At 	least in my field. So writing and communication is what separates them because they all can do the math needed. My old boss told me he hired me over the other candidates for that reason. 	He said everyone can do these calculations that we hire but you have social skills.
+					So I wouldn't say writing is the most important skill. It just makes you stand out. After all if you couldn't do the math required to engineer whatever you are designing there wouldn't have any content to email about or write a report on. That or you'd be promoted to product manager.`
+    }
+}).done(function(response) {
+    console.log(response)
+    $('body').html(JSON.stringify(response));
+});
+
+$.ajax({
+    url: '/flights',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+        args: {
+            origin: 'KIAH',
+            destination: 'KJFK',
+            type: 'nonstop'
+        }
+    }
+}).done(function(response) {
+    console.log(response)
+    $('body').html(JSON.stringify(response));
+});
 </script>
 
 </html>

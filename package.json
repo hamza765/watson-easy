@@ -12,7 +12,10 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "flightaware.js": "^1.0.3",
     "morgan": "^1.8.2",
+    "node-rest-client": "^3.1.0",
+    "restler": "^3.4.0",
     "watson-developer-cloud": "^2.37.0"
   }
 }
