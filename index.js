@@ -29,7 +29,7 @@ var client_options = {
 };
 var client = new Client(client_options);
 
-client.registerMethod('findFlights', fxmlUrl + 'FindFlight', 'GET');
+client.registerMethod('findFlights', fxmlUrl + 'FlightInfoStatus', 'GET');
 
 
 
