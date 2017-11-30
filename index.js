@@ -52,9 +52,9 @@ app.use(bodyParser.json());
 app.use(express.static('./client'));
 
 
-// app.get('/', function(req, res) {
-//     res.sendFile('index.html')
-// });
+app.get('/', function(req, res) {
+     res.send('THE GUI WORKS')
+});
 
 app.post("/profile", function(req, res) {
     var content = req.body.content
